@@ -35,7 +35,6 @@ public:
      istream &ler(istream &I);
      inline ostream &salvar(ostream &O) const {return imprimir(O);}
 
-
 };
 
 inline istream &operator>>(istream &I, Livro &L) {return L.digitar(I);}
@@ -105,8 +104,8 @@ public:
     inline ~ListaLivro() {limpar();}
 };
 
-  ostream &operator<<(ostream &O, const ListaLivro &L);
-  istream &operator>>(istream &I, ListaLivro &LL);
+  ostream &operator<<(ostream &O, const ListaLivro &L){return L.imprimir(O);}
+  istream &operator>>(istream &I, ListaLivro &LL){return L.digitar(I);}
 
 
   class ListaCD
@@ -133,8 +132,8 @@ public:
     inline ~ListaCD() {limpar();}
 };
 
-  ostream &operator<<(ostream &O, const ListaCD &LCD);
-  istream &operator>>(istream &I, ListaCD &LCD);
+  ostream &operator<<(ostream &O, const ListaCD &LCD){return LCD.imprimir(O);}
+  istream &operator>>(istream &I, ListaCD &LCD){return LCD.digitar(I);}
 
 
   class ListaDVD
@@ -161,12 +160,10 @@ public:
     inline ~ListaDVD() {limpar();}
 };
 
-  ostream &operator<<(ostream &O, const ListaDVD &DVD);
-  istream &operator>>(istream &I, ListaDVD &DVD);
+  ostream &operator<<(ostream &O, const ListaDVD &DVD){return DVD.imprimir(O);}
+  istream &operator>>(istream &I, ListaDVD &DVD{return DVD.digitar(I);}
 
-// =========================================
-// Inclua aqui as classes ListaCD e ListaDVD
-// =========================================
+
 
 class Loja
 {
