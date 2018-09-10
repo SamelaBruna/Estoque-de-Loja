@@ -1,5 +1,10 @@
 #include "loja_heranca.h"
 #include <cmath>
+#include <iostream>
+#include <stdint.h>
+#include <fstream>
+#include <string>
+#include <limits>
 
 
 
@@ -23,41 +28,34 @@ ostream &Produto::imprimir(ostream &O) const
   return O;
 }
 
- istream &Produto :: ler(istream &I){
-  ----------------------------------------------
-                    IMPLEMENTAR
-  ----------------------------------------------
-
- }
- ostream &Produto::salvar(ostream &O) const
-
+ istream &Produto :: ler(istream &I)
  {
-      -------------------------------------------
-                    IMPLEMENTAR
-      -------------------------------------------
-      return imprimir(O);
+
+     float pr;
+     I.ignore(numeric_limits<streamsize>::max(), '"');
+     getline(I, nome, '"');
+
+     I.ignore(numeric_limits<streamsize>::max(), '$');
+     I >> pr;
+     preco = pr*100;
+
+     return I;
+
  }
-
-inline istream &operator>>(istream &I, Produto &X)
-{
-     return X.digitar(I); //desnecessário?
-}
-inline ostream &operator<<(ostream &O, Produto &X)
-{
-     return X.imprimir(O); //desnecessário?
-}
-
 
 
 istream &Livro::digitar(istream &I)
 {
      Produto::digitar(I);
-     I>>autor;
+     cout << "Nome do autor: ";
+     I.ignore(numeric_limits<streamsize>::max(), '\n');
+     getline(I, autor, '\n');
 
      return I;
 }
 ostream &Livro::imprimir(ostream &O) const
 {
+     O << "L: ";
      Produto::imprimir(O);
      O <<';'<<'"'<<autor<<'"';
 
@@ -66,102 +64,80 @@ ostream &Livro::imprimir(ostream &O) const
 }
 
 istream &Livro :: ler(istream &I){
-  //----------------------------------------------
-                  //  IMPLEMENTAR
-  //----------------------------------------------
+     Produto:: ler(I);
+     I.ignore(numeric_limits<streamsize>::max(), '"');
+     getline(I, autor, '"');
+
+     return I;
 
  }
- ostream &Livro::salvar(ostream &O) const
-
-{
-     // -------------------------------------------
-       //             IMPLEMENTAR
-      //-------------------------------------------
-      return imprimir(O);
-}
-
-
-inline istream &operator>>(istream &I, Livro &L) {return L.digitar(I);}
-inline ostream &operator<<(ostream &O, Livro &L) {return L.imprimir(O);}
 
 
 istream &CD::digitar(istream &I)
 {
      Produto::digitar(I);
+     cout <<"Numero de faixas: ";
+     I.ignore();
      I>>nFaixas;
 
      return I;
 }
 ostream &CD::imprimir(ostream &O) const
 {
+     O <<"C: ";
      Produto::imprimir(O);
-     O <<nFaixas;
+     O <<';'<<nFaixas;
 
      return O;
 
 }
- istream &CD :: ler(istream &I){
-  ----------------------------------------------
-                    IMPLEMENTAR
-  ----------------------------------------------
+ istream &CD :: ler(istream &I)
+ {
+     Produto:: ler(I);
+     I.ignore(numeric_limits<streamsize>::max(), ';');
+     I >> nFaixas;
+
+     return I;
 
  }
- ostream &CD::salvar(ostream &O) const
-{
-      -------------------------------------------
-                    IMPLEMENTAR
-      -------------------------------------------
-      return imprimir(O);
-}
-
-inline istream &operator>>(istream &I, CD &C) {return C.digitar(I);}
-inline ostream &operator<<(ostream &O, CD &C)  {return C.imprimir(O);}
 
 
 istream &DVD::digitar(istream &I)
 {
      Produto::digitar(I);
+     cout <<"Duracao: ";
+     I.ignore();
      I>>duracao;
 
      return I;
 }
 ostream &DVD::imprimir(ostream &O) const
 {
+     O << "D: ";
      Produto::imprimir(O);
-     O << duracao;
+     O << ';' << duracao;
 
      return O;
 
 }
- istream &DVD :: ler(istream &I){
-  //----------------------------------------------
-                    //IMPLEMENTAR
-  //----------------------------------------------
+ istream &DVD :: ler(istream &I)
+ {
+     Produto:: ler(I);
+     I.ignore(numeric_limits<streamsize>::max(), ';');
+     I >> duracao;
+
+     return I;
+
 
  }
- ostream &DVD::salvar(ostream &O) const
-{
-    //  -------------------------------------------
-      //              IMPLEMENTAR
-      //-------------------------------------------
-      return imprimir(O);
-}
-
-inline istream &operator>>(istream &I, DVD &D) {return D.digitar(I);}
-inline ostream &operator<<(ostream &O, DVD &D)  {return D.imprimir(O);}
 
 
-void ListaLivro::limpar()
-{
-  delete[] x;
-  x = NULL;
-  N = 0;
-}
+
 
 void ListaLivro::criar(unsigned Num)
 {
   N = Num;
-  x = ( N>0 ? new double[N] : NULL );
+  x = ( N>0 ? new Livro [N] : NULL );
 }
 
 void ListaLivro::copiar(const ListaLivro &LL)
@@ -170,18 +146,40 @@ void ListaLivro::copiar(const ListaLivro &LL)
   for (unsigned i=0; i<N; i++) x[i] = LL.x[i];
 }
 
+void ListaLivro::limpar()
+{
+     if(x==NULL)
+     {
+          N = 0;
+     }
+     else
+     {
+          delete[] x;
+          x = NULL;
+          N = 0;
+
+     }
 ListaLivro::ListaLivro(unsigned Num)
 {
   criar(Num);
   for (unsigned i=0; i<N; i++) x[i] = "";
 }
 
-void ListaLivro::incluir(const Livro &L){
+void ListaLivro::incluir(const Livro &L)
+{
 
+     Livro *provisorio;
+     provisorio = new Livro [N+1];
+     for(unsigned i=0; i<N; i++) provisorio[i] = x[i];
+     provisorio[N] = L;
+     N = N+1;
+     delete [] x;
+     x = provisorio;
+     cout << "Livro incluido com sucesso!\n";
 
 }
 void ListaLivro::excluir(unsigned id){
-     if (id>=N || )
+     if (id>=N )
      {
           cerr << "Indice invalido\n";
 
@@ -209,19 +207,42 @@ void ListaLivro::excluir(unsigned id){
     cout << "Livro excluido com sucesso!\n";
 
 }
-void ListaLivro::imprimir() const{
-
-    cout << "LISTA LIVRO" << N;
-
-for (unsigned i=0; i<x.N; i++)
+ostream ListaLivro::imprimir(ostream &O) const
 {
-     cout <<i <<')'<<"L: " << x[i].imprimir();
+
+     cout << "LISTALIVRO" << N << endl;
+
+     for (unsigned i=0; i<x.N; i++)
+     {
+          O << i << ")";
+          x[i].imprimir(O);
+          O << endl;
+     }
+
+     return O;
+}
+void ListaLivro::ler(istream &I)
+{
+    I >> N;
+    I.ignore(numeric_limits<streamsize>::max(), '\n');
+    x = new Livro [N];
+    for(unsigned i=0; i<N; i++) x[i].ler(I);
+
+}
+void ListaLivro::salvar(ostream &O) const
+{
+ cout << "LISTALIVRO" << N << endl;
+
+     for (unsigned i=0; i<x.N; i++)
+     {
+          x[i].imprimir(O);
+          O << endl;
+     }
+
+     return O;
+
 }
 
-
-}
-void ListaLivro::ler(istream &I);
-void ListaLivro::salvar(ostream &O) const;
 
 
 

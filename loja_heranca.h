@@ -85,8 +85,8 @@ class ListaLivro
 private:
     Livro *x;
     unsigned N;
-    void copiar(const ListaLivro &LL);
     void criar(unsigned Num);
+    void copiar(const ListaLivro &LL);
     void limpar();
 
 public:
@@ -97,9 +97,9 @@ public:
 
     void incluir(const Livro &L);
     void excluir(unsigned id);
-    void imprimir() const;
+    ostream &imprimir(ostream &O) const;
     void ler(istream &I);
-    void salvar(ostream &O) const;
+    ostream salvar(ostream &O) const;
 
     inline ~ListaLivro() {limpar();}
 };
@@ -125,9 +125,9 @@ public:
 
     void incluir(const CD &C);
     void excluir(unsigned id);
-    void imprimir() const;
+    ostream imprimir(ostream &O) const;
     void ler(istream &I);
-    void salvar(ostream &O) const;
+    ostream salvar(ostream &O) const;
 
     inline ~ListaCD() {limpar();}
 };
@@ -153,9 +153,9 @@ public:
 
     void incluir(const DVD &DV);
     void excluir(unsigned id);
-    void imprimir() const;
+    ostream imprimir(ostream &o) const;
     void ler(istream &I);
-    void salvar(ostream &O) const;
+    ostream salvar(ostream &O) const;
 
     inline ~ListaDVD() {limpar();}
 };
