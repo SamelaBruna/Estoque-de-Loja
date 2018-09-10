@@ -358,7 +358,7 @@ void ListaDVD::criar(unsigned Num)
   x = ( N>0 ? new DVD [N] : NULL );
 }
 
-void ListaCD::copiar(const ListaCD &LDV)
+void ListaDVD::copiar(const ListaDVD &LDV)
 {
   criar(LDV.N);
   for (unsigned i=0; i<N; i++) x[i] = LDV.x[i];
