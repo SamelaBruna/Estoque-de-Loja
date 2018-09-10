@@ -179,7 +179,7 @@ public:
     inline void excluirDVD(unsigned id) {LD.excluir(id);}
     inline void incluirCD(const CD &X) {LC.incluir(X);}
     inline void excluirCD(unsigned id) {LC.excluir(id);}
-    void imprimir() const;
+    void imprimir(ostream &O) const;
     void ler(const char* arq);
     void salvar(const char* arq) const;
 };

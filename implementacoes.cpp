@@ -462,4 +462,62 @@ void ListaDVD::salvar(ostream &O) const
 }
 
 
+void Loja::imprimir() const
+{
+     LL.imprimir(O);
+     LC.imprimir(O);
+     LD.imprimir(O);
+
+}
+void Loja::ler(const char* arq)
+{
+     ifstream arquivo(arq);
+     if (arquivo.is_open)
+     {
+          string prov;
+          arq >> prov;
+               if (prov != "LISTALIVRO")
+               {
+                    cerr << "Arquivo com cabecalho invalido\n";
+                    return;
+               }
+
+               else
+               {
+                    LL.ler(arquivo);
+                    LC.ler(arquivo);
+                    LD.ler(arquivo);
+                    cerr << "Arquivo lido com sucesso!" <<endl;
+               }
+        arquivo.close();
+     }
+     else
+     {
+          cerr << "Erro ao ler o arquivo!\n";
+     }
+
+}
+
+
+void Loja:: salvar(const char* arq) const
+{
+     ofstream arquivo(arq);
+     if(arquivo.is_open())
+     {
+        cerr << "Salvando o arquivo..." << endl;
+        LL.salvar(arquivo);
+        LC.salvar(arquivo);
+        LD.salvar(arquivo);
+
+        arquivo.close();
+        cerr << "Arquivo " << arq << " salvo com sucesso!\n";
+    }
+    else
+     {
+        cerr << "Erro ao salvar o arquivo " << arq <<"!";
+     }
+
+}
+
+
 
