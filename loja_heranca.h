@@ -74,7 +74,7 @@ public:
      istream &ler(istream &I);
      inline ostream &salvar(ostream &O) const {return imprimir(O);}
 
-    };
+};
 
 inline istream &operator>>(istream &I, DVD &D) {return D.digitar(I);}
 inline ostream &operator<<(ostream &O, DVD &D)  {return D.imprimir(O);}
@@ -93,18 +93,18 @@ public:
 
     inline ListaLivro(): N(0), x(NULL) {}
     inline ListaLivro(const ListaLivro &LL) {copiar(LL);}
-    explicit ListaLivro(unsigned Num);
+    inline ListaLivro(unsigned Num) {criar(Num);}
 
     void incluir(const Livro &L);
     void excluir(unsigned id);
     ostream &imprimir(ostream &O) const;
     void ler(istream &I);
-    ostream salvar(ostream &O) const;
+    ostream &salvar(ostream &O) const;
 
     inline ~ListaLivro() {limpar();}
 };
 
-    class ListaCD
+class ListaCD
 {
 private:
     CD *x;
@@ -117,13 +117,13 @@ public:
 
     inline ListaCD(): N(0), x(NULL) {}
     inline ListaCD(const ListaCD &LCD) {copiar(LCD);}
-    explicit ListaCD(unsigned Num);
+    inline ListaCD(unsigned Num) {criar(Num);}
 
     void incluir(const CD &C);
     void excluir(unsigned id);
-    ostream imprimir(ostream &O) const;
+    ostream &imprimir(ostream &O) const;
     void ler(istream &I);
-    ostream salvar(ostream &O) const;
+    ostream &salvar(ostream &O) const;
 
     inline ~ListaCD() {limpar();}
 };
@@ -142,13 +142,13 @@ public:
 
     inline ListaDVD(): N(0), x(NULL) {}
     inline ListaDVD(const ListaDVD &LDV) {copiar(LDV);}
-    explicit ListaDVD(unsigned Num);
+    inline ListaDVD(unsigned Num) {criar(Num);}
 
     void incluir(const DVD &DV);
     void excluir(unsigned id);
-    ostream imprimir(ostream &o) const;
+    ostream &imprimir(ostream &o) const;
     void ler(istream &I);
-    ostream salvar(ostream &O) const;
+    ostream &salvar(ostream &O) const;
 
     inline ~ListaDVD() {limpar();}
 };
