@@ -87,7 +87,7 @@ int main()
             X.incluirDVD(D);
             break;
         case 4:
-            X.imprimir();
+            X.imprimir(cout);
             break;
         case 5:
             X.ler(A.c_str());

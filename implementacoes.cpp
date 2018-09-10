@@ -462,7 +462,7 @@ void ListaDVD::salvar(ostream &O) const
 }
 
 
-void Loja::imprimir() const
+void Loja::imprimir(ostream &O) const
 {
      LL.imprimir(O);
      LC.imprimir(O);
