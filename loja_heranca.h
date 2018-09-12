@@ -94,7 +94,7 @@ public:
     inline ListaLivro(): N(0), x(NULL) {}
     inline ListaLivro(const ListaLivro &LL) {copiar(LL);}
     inline ListaLivro(unsigned Num) {criar(Num);}
-
+    inline unsigned getTam() const {return N;}
     void incluir(const Livro &L);
     void excluir(unsigned id);
     ostream &imprimir(ostream &O) const;
@@ -118,7 +118,7 @@ public:
     inline ListaCD(): N(0), x(NULL) {}
     inline ListaCD(const ListaCD &LCD) {copiar(LCD);}
     inline ListaCD(unsigned Num) {criar(Num);}
-
+    inline unsigned getTam() const {return N;}
     void incluir(const CD &C);
     void excluir(unsigned id);
     ostream &imprimir(ostream &O) const;
@@ -143,7 +143,7 @@ public:
     inline ListaDVD(): N(0), x(NULL) {}
     inline ListaDVD(const ListaDVD &LDV) {copiar(LDV);}
     inline ListaDVD(unsigned Num) {criar(Num);}
-
+    inline unsigned getTam() const {return N;}
     void incluir(const DVD &DV);
     void excluir(unsigned id);
     ostream &imprimir(ostream &o) const;

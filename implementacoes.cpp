@@ -459,34 +459,49 @@ void Loja::imprimir(ostream &O) const
      LD.imprimir(O);
 
 }
-void Loja::ler(const char* arq)
-{
-     ifstream arquivo(arq);
-     if (arquivo.is_open())
-     {
-          string prov;
-          arquivo >> prov;
-               if (prov != "LISTALIVRO")
-               {
-                    cerr << "Arquivo com cabecalho invalido\n";
+void Loja::ler(const char* arq){
+    unsigned N;
+    ifstream arquivo(arq);
+    if(arquivo.is_open()){
+        string prov;
+        arquivo >> prov;
+        if (prov != "LISTALIVRO") {
+            cerr << "Arquivo invalido em LISTALIVRO\n";
+            return;
+        }
+        else{
+            LL.ler(arquivo);
+            arquivo >> prov;
+            if (prov != "LISTACD") {
+                cerr << "Arquivo invalido em LISTACD\n";
+                N = LL.getTam();
+                for(unsigned i=0; i<N; i++) excluirLivro(0);
+                return;
+            }
+            else{
+                LC.ler(arquivo);
+                if (prov != "LISTADVD") {
+                    cerr << "Arquivo invalido em LISTADVD\n";
+                    N = LL.getTam();
+                    for(unsigned i=0; i<N; i++) excluirLivro(0);
+                    N = LL.getTam();
+                    for(unsigned i=0; i<N; i++) excluirCD(0);
                     return;
-               }
-
-               else
-               {
-                    LL.ler(arquivo);
-                    LC.ler(arquivo);
+                }
+                else{
                     LD.ler(arquivo);
-                    cerr << "Arquivo lido com sucesso!" <<endl;
-               }
-        arquivo.close();
-     }
-     else
-     {
-          cerr << "Erro ao ler o arquivo!\n";
-     }
+                }
+            }
 
+            cerr << "Arquivo lido com sucesso!" <<endl;
+        }
+        arquivo.close();
+    }
+    else {
+        cerr << "Erro ao ler o arquivo!\n";
+    }
 }
+
 
 
 void Loja::salvar(const char* arq) const
